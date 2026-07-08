@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Panel</title>
+
+    <link rel="stylesheet"
+    href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">
+📄 DocInsight AI
+</div>
+
+<nav>
+
+<a href="{{ url_for('dashboard') }}">Dashboard</a>
+<a href="{{ url_for('history') }}">History</a>
+<a href="{{ url_for('logout') }}">Logout</a>
+
+</nav>
+
+</header>
+
+<section class="hero">
+
+<h1>Admin Dashboard</h1>
+
+<p>Manage Users & Documents</p>
+
+</section>
+
+<section style="padding:40px 8%;">
+
+<h2>👥 Registered Users</h2>
+
+<table border="1" width="100%" cellpadding="10">
+
+<tr>
+
+<th>ID</th>
+<th>Name</th>
+<th>Email</th>
+<th>Role</th>
+
+</tr>
+
+{% for user in users %}
+
+<tr>
+
+<td>{{ user.id }}</td>
+<td>{{ user.name }}</td>
+<td>{{ user.email }}</td>
+<td>{{ user.role }}</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+<br><br>
+
+<h2>📄 Uploaded Documents</h2>
+
+<table border="1" width="100%" cellpadding="10">
+
+<tr>
+
+<th>User ID</th>
+<th>Filename</th>
+<th>Category</th>
+<th>Words</th>
+<th>Characters</th>
+<th>Date</th>
+
+</tr>
+
+{% for row in history %}
+
+<tr>
+
+<td>{{ row.user_id }}</td>
+<td>{{ row.filename }}</td>
+<td>{{ row.category }}</td>
+<td>{{ row.words }}</td>
+<td>{{ row.characters }}</td>
+<td>{{ row.upload_time }}</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</section>
+
+</body>
+</html>

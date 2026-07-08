@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Analysis Dashboard | DocInsight AI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<header>
+
+    <div class="logo">📄 DocInsight AI</div>
+
+   <nav>
+    <a href="/">Home</a>
+    <a href="#summary">Summary</a>
+    <a href="#chat">Ask AI</a>
+</nav>
+</header>
+
+<section class="hero">
+    <div class="hero-badge">
+    ✅ Analysis Completed Successfully
+</div>
+
+    <h1>📊 Document Analysis Dashboard</h1>
+    <p>Your document has been analyzed successfully using Gemini AI.</p>
+
+</section>
+
+<section style="padding:40px 8%;">
+
+ <div class="card">
+
+    <h2>📑 Document Details</h2>
+
+    <p><strong>Filename:</strong> {{ filename }}</p>
+
+    <p><strong>Total Pages:</strong> {{ total_pages }}</p>
+
+    <p><strong>Analysis Time:</strong> {{ analysis_time }}</p>
+
+    <br>
+
+    <span class="badge blue">
+        📂 {{ document_type }}
+    </span>
+
+    <span class="badge green">
+        😊 {{ sentiment }}
+    </span>
+
+</div>
+<br>
+
+<!-- Statistics -->
+
+    <!-- Statistics -->
+
+    <div class="stats">
+
+        <div class="stat-card">
+            <h3>Words</h3>
+            <h1>{{ stats.words }}</h1>
+        </div>
+
+        <div class="stat-card">
+            <h3>Characters</h3>
+            <h1>{{ stats.characters }}</h1>
+        </div>
+
+        <div class="stat-card">
+            <h3>Sentences</h3>
+            <h1>{{ stats.sentences }}</h1>
+        </div>
+
+        <div class="stat-card">
+            <h3>Reading Time</h3>
+            <h1>{{ stats.reading_time }}</h1>
+        </div>
+
+    </div>
+
+    <br>
+
+    <br>
+
+<div class="card">
+
+    <h2>📊 Top 10 Words</h2>
+
+    <img
+        src="{{ url_for('static', filename='charts/word_chart.png') }}"
+        style="width:250%;max-width:1100px;display:block;margin:auto;">
+
+</div>
+
+<br>
+
+<div class="card">
+
+    <h2>☁️ Word Cloud</h2>
+
+    <img
+        src="{{ url_for('static', filename='charts/wordcloud.png') }}"
+        style="width:250%;max-width:1100px;display:block;margin:auto;">
+
+</div>
+    <br>
+
+    <br>
+
+    <!-- Summary -->
+
+    <div class="card" id="summary">
+
+        <h2>🤖 AI Summary</h2>
+
+        <p style="line-height:2;">
+            {{ summary }}
+        </p>
+
+    </div>
+    <br>
+
+<div class="card">
+
+    <h2>💡 AI Recommendations</h2>
+
+    <pre style="white-space: pre-wrap; line-height: 1.8;">
+{{ recommendation }}
+    </pre>
+
+</div>
+
+    <button onclick="copySummary()" class="copy-btn">
+    📋 Copy Summary
+</button>
+
+    <br>
+    <div class="card">
+
+    <h2>📊 Document Visualization</h2>
+
+    
+</div>
+
+    <!-- Keywords -->
+
+    <div class="card">
+
+        <h2>🔑 Smart Keywords</h2>
+
+        <div class="keyword-box">
+
+            {% for keyword in keywords %}
+
+            <div class="keyword">
+
+                {{ keyword }}
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+    <br>
+
+    <!-- Ask AI -->
+
+    <div class="card" id="chat">
+
+        <h2>💬 Ask AI About This Document</h2>
+
+        <form action="/ask" method="POST">
+
+            <input
+                type="hidden"
+                name="document_text"
+                value="{{ extracted_text }}">
+
+            <input
+                type="text"
+                name="question"
+                placeholder="Ask any question..."
+                required>
+
+            <button type="submit">
+
+                Ask AI
+
+            </button>
+
+        </form>
+
+    </div>
+
+    <br>
+
+    <!-- Extracted Text -->
+
+    <div class="card">
+
+        <h2>📜 Extracted Text</h2>
+
+        <textarea readonly>
+
+{{ extracted_text[:5000] }}
+
+        </textarea>
+
+        <p style="margin-top:15px;color:#94a3b8;">
+            Showing the first 5000 characters for better performance.
+        </p>
+
+    </div>
+
+    <br>
+
+    <br>
+
+<a href="{{ url_for('download_report', filename=filename + '_report.pdf') }}">
+
+  <button style="background:#16a34a;">
+    📥 Download Analysis Report
+</button>
+</a>
+
+<br> 
+<br>
+
+    <a href="/">
+
+        <button>
+
+            Upload Another Document
+
+        </button>
+
+    </a>
+
+</section>
+
+<footer>
+
+    © 2026 DocInsight AI | AI Powered Document Intelligence
+
+</footer>
+<script>
+function copySummary(){
+
+    const summary = `{{ summary|safe }}`;
+
+    navigator.clipboard.writeText(summary);
+
+    alert("Summary copied successfully!");
+
+}
+</script>
+</body>
+</html>

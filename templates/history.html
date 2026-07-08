@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Analysis History</title>
+
+    <link rel="stylesheet"
+    href="{{ url_for('static',filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">
+
+📄 DocInsight AI
+
+</div>
+
+<div style="margin-bottom:25px;">
+
+    <input
+        type="text"
+        id="searchHistory"
+        placeholder="🔍 Search documents..."
+        onkeyup="searchTable()">
+
+</div>
+
+<nav>
+
+<a href="/">Home</a>
+
+<a href="/history">History</a>
+
+</nav>
+
+</header>
+
+<section class="hero">
+
+<h1>Analysis History</h1>
+
+<p>Previously analyzed documents</p>
+
+</section>
+
+<section style="padding:40px 8%;">
+
+<table id="historyTable" style="width:100%;border-collapse:collapse;">
+
+<tr>
+
+<th>Filename</th>
+
+<th>Category</th>
+
+<th>Words</th>
+
+<th>Characters</th>
+
+<th>Date</th>
+
+</tr>
+
+{% for item in records %}
+
+{% for item in records %}
+<tr>
+    <td>{{ item["filename"] }}</td>
+    <td>{{ item["category"] }}</td>
+    <td>{{ item["words"] }}</td>
+    <td>{{ item["characters"] }}</td>
+    <td>{{ item["upload_time"] }}</td>
+</tr>
+{% endfor %}
+
+{% endfor %}
+
+</table>
+
+</section>
+
+<script>
+
+function searchTable(){
+
+    let input = document.getElementById("searchHistory");
+    let filter = input.value.toLowerCase();
+
+    let table = document.getElementById("historyTable");
+
+    let tr = table.getElementsByTagName("tr");
+
+    for(let i=1;i<tr.length;i++){
+
+        let td = tr[i].getElementsByTagName("td")[0];
+
+        if(td){
+
+            let txt = td.textContent || td.innerText;
+
+            tr[i].style.display =
+                txt.toLowerCase().indexOf(filter)>-1
+                ? ""
+                : "none";
+
+        }
+
+    }
+
+}
+
+</script>
+
+</body>
+
+</html>

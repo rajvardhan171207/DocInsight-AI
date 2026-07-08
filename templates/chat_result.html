@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>AI Answer | DocInsight AI</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<section class="hero">
+
+<h1>🤖 AI Document Assistant</h1>
+
+<div class="card">
+
+<h2>Your Question</h2>
+
+<p>{{ question }}</p>
+
+</div>
+
+<br>
+
+<div class="card">
+
+<h2>AI Answer</h2>
+
+<p style="line-height:1.8; text-align:left;">
+{{ answer }}
+</p>
+
+</div>
+
+<br>
+
+<a href="/">
+
+<button>
+Upload Another Document
+</button>
+
+</a>
+
+</section>
+
+</body>
+
+</html>

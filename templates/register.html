@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Create Account | DocInsight AI</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- Left Side -->
+
+    <div class="left-panel">
+
+        <h1>🚀 Join DocInsight AI</h1>
+
+        <p>
+            Create your account and unlock the power of Artificial Intelligence
+            for document analysis, OCR, AI summaries, recommendations,
+            sentiment analysis and smart document chat.
+        </p>
+
+        <ul>
+            <li>🤖 AI Document Summary</li>
+            <li>📄 OCR Image & PDF Extraction</li>
+            <li>📊 Smart Analytics Dashboard</li>
+            <li>💬 AI Chat with Documents</li>
+            <li>📥 Download PDF Reports</li>
+            <li>🔐 Secure User Account</li>
+        </ul>
+
+    </div>
+
+    <!-- Right Side -->
+
+    <div class="right-panel">
+
+        <form action="{{ url_for('register') }}" method="POST">
+
+            <h2>Create Account</h2>
+
+            <input
+                type="text"
+                name="name"
+                placeholder="👤 Full Name"
+                required>
+
+            <input
+                type="email"
+                name="email"
+                placeholder="📧 Email Address"
+                required>
+
+            <input
+                type="password"
+                name="password"
+                placeholder="🔒 Password"
+                required>
+
+            <input
+                type="password"
+                name="confirm"
+                placeholder="🔒 Confirm Password"
+                required>
+
+            <button type="submit">
+                Create Account
+            </button>
+
+            <p class="bottom-text">
+                Already have an account?
+
+                <a href="{{ url_for('login') }}">
+                    Login
+                </a>
+            </p>
+
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+</html>

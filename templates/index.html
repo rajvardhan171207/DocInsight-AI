@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DocInsight AI</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<header>
+
+    <div class="logo">
+        📄 DocInsight AI
+    </div>
+
+    <nav>
+        <a href="{{ url_for('dashboard') }}">Home</a>
+        <a href="/features">Features</a>
+        <a href="/about">About</a>
+        <a href="/history">History</a>
+        <a href="/logout">Logout</a>
+        {% if session.get("role")=="admin" %}
+        <a href="{{ url_for('admin') }}">Admin Panel</a>
+        {% endif %}
+    
+    </nav>
+
+</header>
+
+<!-- HERO -->
+
+<section class="hero">
+    <h3>Welcome, {{ session.user_name }} 👋</h3>
+
+    <!-- Dashboard -->
+
+    <div class="dashboard">
+
+        <div class="dashboard-card">
+            <h2>📄</h2>
+            <h3>{{ dashboard.total }}</h3>
+            <p>Total Documents</p>
+        </div>
+
+        <div class="dashboard-card">
+            <h2>📕</h2>
+            <h3>{{ dashboard.pdf }}</h3>
+            <p>PDF Files</p>
+        </div>
+
+        <div class="dashboard-card">
+            <h2>📘</h2>
+            <h3>{{ dashboard.docx }}</h3>
+            <p>DOCX Files</p>
+        </div>
+
+        <div class="dashboard-card">
+            <h2>📗</h2>
+            <h3>{{ dashboard.txt }}</h3>
+            <p>TXT Files</p>
+        </div>
+
+    </div>
+
+    <div class="hero-badge">
+        🚀 Gemini AI • OCR Enabled • Smart Analysis
+    </div>
+
+    <h1>
+        Analyze Documents with
+        <span>Artificial Intelligence</span>
+    </h1>
+
+    <p>
+        Upload PDF, DOCX, TXT or Image files and instantly generate AI summaries,
+        document classification, OCR text extraction, sentiment analysis,
+        recommendations, charts and intelligent question answering.
+    </p>
+
+    <!-- Upload Form -->
+
+    <form action="/upload" method="POST" enctype="multipart/form-data">
+
+        <div class="upload-box">
+
+            <div class="upload-icon">
+                📂
+            </div>
+
+            <h2>Upload Your Document</h2>
+
+            <p>
+                Supported Formats:
+                PDF • DOCX • TXT • JPG • PNG
+            </p>
+
+            <input
+                type="file"
+                name="document"
+                accept=".pdf,.docx,.txt,.jpg,.jpeg,.png"
+                required>
+
+            <button type="submit">
+                🚀 Analyze Document
+            </button>
+
+        </div>
+
+    </form>
+
+    <!-- Hero Statistics -->
+
+    <div class="hero-stats">
+
+        <div>
+            <h2>10+</h2>
+            <p>AI Features</p>
+        </div>
+
+        <div>
+            <h2>5</h2>
+            <p>Supported Formats</p>
+        </div>
+
+        <div>
+            <h2>100%</h2>
+            <p>AI Powered</p>
+        </div>
+
+        <div>
+            <h2>⚡</h2>
+            <p>Fast Analysis</p>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- FEATURES -->
+
+<section class="features" id="features">
+
+    <div class="card">
+        <h2>🤖 AI Summary</h2>
+        <p>Generate professional summaries for lengthy documents using Gemini AI.</p>
+    </div>
+
+    <div class="card">
+        <h2>💬 Ask AI</h2>
+        <p>Ask intelligent questions and receive answers directly from your uploaded document.</p>
+    </div>
+
+    <div class="card">
+        <h2>🏷️ Classification</h2>
+        <p>Automatically identify whether your document is a Resume, Invoice, Report, Research Paper and more.</p>
+    </div>
+
+    <div class="card">
+        <h2>😊 Sentiment Analysis</h2>
+        <p>Analyze the tone and overall sentiment of your document using AI.</p>
+    </div>
+
+    <div class="card">
+        <h2>📊 Analytics</h2>
+        <p>View document statistics, charts, word cloud and keyword extraction.</p>
+    </div>
+
+    <div class="card">
+        <h2>🖼 OCR Support</h2>
+        <p>Extract text from scanned images and documents using Tesseract OCR.</p>
+    </div>
+
+</section>
+
+<!-- ABOUT -->
+
+<section id="about" class="hero">
+
+    <h1>About DocInsight AI</h1>
+
+    <p>
+        DocInsight AI is an AI-powered Document Intelligence platform built using
+        <strong>Python, Flask, Google Gemini AI, HTML, CSS, JavaScript and Tesseract OCR</strong>.
+        It helps users summarize documents, classify content, extract text,
+        perform sentiment analysis, generate reports and interact with documents using AI.
+    </p>
+
+</section>
+
+<footer>
+
+    <p>
+        © 2026 DocInsight AI | Developed by Rajvardhan
+    </p>
+
+</footer>
+
+<div id="loading-screen" style="display:none;">
+    <div class="loader"></div>
+    <h2>Analyzing your document...</h2>
+    <p>Please wait while Gemini AI processes your document.</p>
+</div>
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+</html>
