@@ -298,7 +298,8 @@ def admin():
 
     cursor.execute("SELECT * FROM history ORDER BY id DESC")
     history = cursor.fetchall()
-
+    print("Total Users:", len(users))
+    print("Total History:", len(history))
     conn.close()
 
     return render_template(
