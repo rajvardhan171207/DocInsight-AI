@@ -27,7 +27,11 @@ load_dotenv()
 
 app = Flask(__name__)
 
-app.secret_key = os.getenv("SECRET_KEY")
+secret = os.getenv("SECRET_KEY")
+
+print("SECRET_KEY =", secret)
+
+app.secret_key = secret
 
 UPLOAD_FOLDER = "uploads"
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
