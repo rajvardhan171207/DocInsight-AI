@@ -10,7 +10,7 @@ def save_history_db(user_id, filename, category, stats):
     cursor.execute("""
         INSERT INTO history
         (user_id, filename, category, words, characters, upload_time)
-        VALUES (?, ?, ?, ?, ?, ?)
+        VALUES (%s, %s, %s, %s, %s, %s)
     """, (
         user_id,
         filename,
@@ -38,7 +38,7 @@ def load_history_db(user_id):
                characters,
                upload_time
         FROM history
-        WHERE user_id = ?
+        WHERE user_id = %s
         ORDER BY id DESC
     """, (user_id,))
 
@@ -55,11 +55,11 @@ def get_dashboard_stats(user_id):
     cursor.execute("""
         SELECT
             COUNT(*) AS total,
-            SUM(CASE WHEN filename LIKE '%.pdf' THEN 1 ELSE 0 END) AS pdf,
-            SUM(CASE WHEN filename LIKE '%.docx' THEN 1 ELSE 0 END) AS docx,
-            SUM(CASE WHEN filename LIKE '%.txt' THEN 1 ELSE 0 END) AS txt
+            SUM(CASE WHEN filename LIKE '%%.pdf' THEN 1 ELSE 0 END) AS pdf,
+            SUM(CASE WHEN filename LIKE '%%.docx' THEN 1 ELSE 0 END) AS docx,
+            SUM(CASE WHEN filename LIKE '%%.txt' THEN 1 ELSE 0 END) AS txt
         FROM history
-        WHERE user_id = ?
+        WHERE user_id = %s
     """, (user_id,))
 
     data = cursor.fetchone()

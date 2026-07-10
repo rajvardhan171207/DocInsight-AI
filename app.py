@@ -20,11 +20,14 @@ from utils.charts import create_word_chart, create_wordcloud
 from history.history import save_history, load_history
 from utils.recommendation import generate_recommendation
 from history.database_history import save_history_db, load_history_db, get_dashboard_stats
+from werkzeug.security import generate_password_hash, check_password_hash
+from dotenv import load_dotenv
 
+load_dotenv()
 
 app = Flask(__name__)
 
-app.secret_key = "docinsight_secret_key_2026"
+app.secret_key = os.getenv("SECRET_KEY")
 
 UPLOAD_FOLDER = "uploads"
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
@@ -68,15 +71,15 @@ def login():
         cursor = conn.cursor()
 
         cursor.execute(
-            "SELECT * FROM users WHERE email=? AND password=?",
-            (email, password)
+            "SELECT * FROM users WHERE email=%s",
+            (email,)
         )
 
         user = cursor.fetchone()
 
         conn.close()
 
-        if user:
+        if user and check_password_hash(user["password"], password):
 
             session["user_id"] = user["id"]
             session["user_name"] = user["name"]
@@ -86,7 +89,6 @@ def login():
             return redirect(url_for("dashboard"))
 
         else:
-
             return "Invalid Email or Password"
 
     return render_template("login.html")
@@ -99,15 +101,15 @@ def register():
         name = request.form["name"]
         email = request.form["email"]
         password = request.form["password"]
-
+        hashed_password = generate_password_hash(password)
         conn = get_connection()
 
         try:
             cursor = conn.cursor()
 
             cursor.execute(
-                "INSERT INTO users (name, email, password) VALUES (?, ?, ?)",
-                (name, email, password)
+                "INSERT INTO users (name, email, password) VALUES (%s, %s, %s)",
+                (name, email, hashed_password)
             )
 
             conn.commit()
