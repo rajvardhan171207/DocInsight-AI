@@ -160,7 +160,7 @@ def upload():
 
     # Extract text
     if extension == "pdf":
-       extracted_text, total_pages = extract_pdf_text(filepath)
+       extracted_text, total_pages, processed_pages = extract_pdf_text(filepath)
 
        print("=" * 50)
        print(extracted_text[:500])
@@ -201,7 +201,7 @@ def upload():
         # recommendation= generate_recommendation(extracted_text[:5000])
         from utils.ai_analysis import analyze_document
 
-        analysis = analyze_document(extracted_text[:5000])
+        analysis = analyze_document(extracted_text[:8000])
 
         summary = analysis["summary"]
         document_type = analysis["document_type"]
