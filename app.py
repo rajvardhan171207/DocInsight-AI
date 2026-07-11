@@ -185,8 +185,8 @@ def upload():
     # Statistics
     stats = document_statistics(extracted_text)
     keywords = extract_keywords(extracted_text)
-    chart = create_word_chart(extracted_text)
-    wordcloud = create_wordcloud(extracted_text)
+    # chart = create_word_chart(extracted_text)
+    # wordcloud = create_wordcloud(extracted_text)
     print("Extracted Text:")
     print(extracted_text[:500])
     print("Length:", len(extracted_text))    
@@ -201,7 +201,7 @@ def upload():
         # recommendation= generate_recommendation(extracted_text[:5000])
         from utils.ai_analysis import analyze_document
 
-        analysis = analyze_document(extracted_text[:10000])
+        analysis = analyze_document(extracted_text[:5000])
 
         summary = analysis["summary"]
         document_type = analysis["document_type"]
@@ -241,8 +241,8 @@ def upload():
         analysis_time=analysis_time,
         total_pages=total_pages,
         sentiment=sentiment,
-        chart=chart,
-        wordcloud=wordcloud,
+        chart=None,
+        wordcloud=None,
         recommendation=recommendation,
         document_type=document_type)
 
