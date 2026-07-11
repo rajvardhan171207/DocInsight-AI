@@ -1,4 +1,4 @@
-print("APP.PY IS RUNNING")
+
 from flask import Flask, render_template, request, redirect, url_for, session
 import os
 
@@ -207,15 +207,14 @@ def upload():
         document_type = analysis["document_type"]
         sentiment = analysis["sentiment"]
         recommendation = analysis["recommendations"]
-        print("Before save_history_db")
+       
         save_history_db(
     session["user_id"],
     file.filename,
     document_type,
     stats
 )  
-        print("After save_history_db")
-        print("History saved successfully")
+        
     except Exception as e:
         summary = f"Gemini Error: {str(e)}"
         document_type = "Unknown"
@@ -229,6 +228,10 @@ def upload():
         summary,
         keywords
     )
+    if isinstance(total_pages, int):
+        processed_pages = min(total_pages, 30)
+    else:
+        processed_pages = total_pages
     analysis_time = datetime.now().strftime("%d-%m-%Y %I:%M %p")
     return render_template(
         "result.html",
@@ -240,6 +243,7 @@ def upload():
         report=report,
         analysis_time=analysis_time,
         total_pages=total_pages,
+        processed_pages=processed_pages,
         sentiment=sentiment,
         chart=None,
         wordcloud=None,

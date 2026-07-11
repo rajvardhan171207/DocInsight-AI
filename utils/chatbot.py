@@ -8,8 +8,7 @@ from dotenv import load_dotenv
 from pathlib import Path
 
 load_dotenv(Path(__file__).resolve().parent.parent / ".env")
-print("API Key:", os.getenv("GEMINI_API_KEY"))
-print("Model: gemini-3.1-flash-lite")
+
 
 # Create Gemini client
 client = genai.Client(

@@ -1,19 +1,15 @@
 import os
 from dotenv import load_dotenv
 from google import genai
-
-from dotenv import load_dotenv
 from pathlib import Path
 
 load_dotenv(Path(__file__).resolve().parent.parent / ".env")
-print("API Key:", os.getenv("GEMINI_API_KEY"))
-print("Model: gemini-3.1-flash-lite")
+
 
 client = genai.Client(
     api_key=os.getenv("GEMINI_API_KEY")
 )
 
-print("Gemini.py API Key:", os.getenv("GEMINI_API_KEY"))
 def generate_summary(text):
     prompt = f"""
 You are an AI document analyst.
