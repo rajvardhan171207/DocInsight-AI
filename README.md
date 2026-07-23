@@ -89,8 +89,7 @@ python app.py
 
 ## 👨‍💻 Author
 
-**Your Name**
-
+**RAJVARDHAN SINGH RATHOD**
 BCA (AI & ML)
 
 2026
